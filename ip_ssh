@@ -1,3 +1,4 @@
+#this is an example of the configuration file,if you do not want to use the script to generate it
 10.4.0.1 test root 22
 50.4.0.2 test1 luca 23
 192.168.1.1 test2 test 24
