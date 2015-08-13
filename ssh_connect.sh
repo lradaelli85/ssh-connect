@@ -41,9 +41,8 @@ then
 res=`awk '{print !$1 !$2 !$3 !$4}' $SSH_FILE |egrep -v "0000|0001" |wc -l`
 if [ $res -ne 0 ]
  then 
-    echo "check the addresses file,remeber you need to specify at least 2 fields in every row."
+    echo "check the addresses file,remeber you need to specify at least 3 fields in every row."
     echo "if ssh ports is not defined,22 is used"
-    echo "if username is not defined,current username will be used"
     echo "every parameter in a row has to use the space as separator"
   exit 1;
   fi
