@@ -12,15 +12,25 @@ done
 }
 
 pop_vector() {
-         
+      
+      if [ -e $SSH_FILE ]   
+        then
         while read ip host user port 
         do
+        if [ -z $ip ] || [ -z $host ] || [ -z $user ]
+         then       
+           echo "you need to set: ip address or hostname or user in your "$SSH_FILE
+           echo "please correct this line "$j" of your "$SSH_FILE 
+           exit 1;
+        else
         vettore_ip[$j]=$ip
         vettore_host[$j]=$host
         vettore_user[$j]=$user
         vettore_port[$j]=$port
         let j=j+1
+        fi
         done < $SSH_FILE
+fi
 
 }
 
@@ -31,27 +41,6 @@ read id
 done
 }
 
-parse(){
-if [ -e $SSH_FILE ]
-then
-#this is an hack,awk check if there is some line with an empty parameter
-#this mean != 0000 (every zero is printed if parametr is not null).
-#so if a != 0000 is reported means that at least one row has not all parameters set
-#i decided to skip the port check
-res=`awk '{print !$1 !$2 !$3 !$4}' $SSH_FILE |egrep -v "0000|0001" |wc -l`
-if [ $res -ne 0 ]
- then 
-    echo "check the addresses file,remeber you need to specify at least 3 fields in every row."
-    echo "if ssh ports is not defined,22 is used"
-    echo "every parameter in a row has to use the space as separator"
-  exit 1;
-  fi
-else
-echo "addresses file not found"
-exit 1;
-fi
-}
-parse
 pop_vector
 print_menu
 ask
