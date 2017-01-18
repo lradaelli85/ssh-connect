@@ -1,8 +1,25 @@
-#!/bin/bash  
+#!/bin/bash
 SSH=`which ssh`
 cont=0
 j=0
 SSH_FILE="$HOME/.ip_ssh"
+n_param="$#"
+param="$1"
+usage() {
+if [ $n_param -gt 0 ]
+then
+case $param in
+-h) echo "script usage $0"
+    echo "it will print a list of hosts,you need only to choose the id of the one you ould to connect to"
+    echo "no parameters are needed"
+    exit;
+    ;;
+*)  echo "invalid option,try with $0 -h"
+    exit 1;
+    ;;
+esac
+fi
+}
 
 print_menu() {
 until [ $cont -eq ${#vettore_ip[@]} ]; do
@@ -12,15 +29,15 @@ done
 }
 
 pop_vector() {
-      
-      if [ -e $SSH_FILE ]   
+
+      if [ -e $SSH_FILE ]
         then
-        while read ip host user port 
+        while read ip host user port
         do
         if [ -z $ip ] || [ -z $host ] || [ -z $user ]
-         then       
+         then
            echo "you need to set: ip address or hostname or user in your "$SSH_FILE
-           echo "please correct this line "$j" of your "$SSH_FILE 
+           echo "please correct this line "$j" of your "$SSH_FILE
            exit 1;
         else
         vettore_ip[$j]=$ip
@@ -43,6 +60,7 @@ read id
 done
 }
 
+usage
 pop_vector
 print_menu
 ask
