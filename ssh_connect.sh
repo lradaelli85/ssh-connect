@@ -30,6 +30,8 @@ pop_vector() {
         let j=j+1
         fi
         done < $SSH_FILE
+       else
+       echo $SSH_FILE "does not exist"
 fi
 
 }
