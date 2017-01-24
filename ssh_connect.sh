@@ -29,7 +29,7 @@ if [ $n_param -gt 0 ]
 then
 case $param in
 -h) echo "script usage $0"
-    echo "it will print a list of hosts,you need only to choose the id of the one you ould to connect to"
+    echo "it will print a list of hosts,you need only to choose the id of the one you would to connect to"
     echo "no parameters are needed"
     exit;
     ;;
