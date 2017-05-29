@@ -42,7 +42,7 @@ fi
 
 print_menu() {
 until [ $cont -eq ${#vettore_ip[@]} ]; do
-echo $cont"_"${vettore_ip[$cont]}"->"${vettore_host[$cont]}"->"${vettore_user[$cont]}"->"${vettore_port[$cont]}
+echo $cont"_"${vettore_ip[$cont]}"->"${vettore_host[$cont]} #"->"${vettore_user[$cont]}"->"${vettore_port[$cont]}
 let cont=cont+1
 done
 }
@@ -51,20 +51,20 @@ pop_vector() {
 
       if [ -e $SSH_FILE ]
         then
-        while read ip host user port
+        while IFS="|" read ip host user port
         do
-        if [[ ! $ip =~ ^#|$^ ]]
+        if [[ ! "$ip" =~ ^#|$^ ]]
         then
-        if [ -z $ip ] || [ -z $host ] || [ -z $user ]
+        if [ -z "$ip" ] || [ -z "$host" ] || [ -z "$user" ]
          then
            echo "you need to set: ip address or hostname or user in your "$SSH_FILE
            echo "please correct this line "$j" of your "$SSH_FILE
            exit 1;
         else
-        vettore_ip[$j]=$ip
-        vettore_host[$j]=$host
-        vettore_user[$j]=$user
-        vettore_port[$j]=$port
+        vettore_ip[$j]="$ip"
+        vettore_host[$j]="$host"
+        vettore_user[$j]="$user"
+        vettore_port[$j]="$port"
         let j=j+1
         fi
       fi
@@ -76,7 +76,7 @@ fi
 }
 
 ask(){
-until [[ $id =~ ^-?[0-9]+$ ]] && [ "$id" -ge 0 ] && [ "$id" -lt "${#vettore_ip[@]}" ]; do
+until [[ "$id" =~ ^-?[0-9]+$ ]] && [ "$id" -ge 0 ] && [ "$id" -lt "${#vettore_ip[@]}" ]; do
 echo "choose the system ID you want to connect to"
 read id
 done
