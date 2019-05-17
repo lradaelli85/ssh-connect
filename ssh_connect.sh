@@ -1,9 +1,7 @@
 #!/bin/bash
+
 SSH=`which ssh`
-cont=0
-j=0
 SSH_FILE="$HOME/.ip_ssh"
-n_param="$#"
 param="$1"
 
 validate_ip () {
@@ -22,6 +20,7 @@ fi
 }
 
 usage() {
+local n_param="$#"
 if [ $n_param -gt 0 ]
 then
 case $param in
@@ -36,6 +35,7 @@ fi
 }
 
 print_menu() {
+local cont=0
 until [ $cont -eq ${#vettore_ip[@]} ]; do
 echo $cont"_"${vettore_ip[$cont]}"->"${vettore_host[$cont]}
 let cont=cont+1
@@ -43,6 +43,7 @@ done
 }
 
 pop_vector() {
+  local j=0
   err_mess="you need to adjust parameter in your $SSH_FILE"
   if [ -e $SSH_FILE ]
     then
