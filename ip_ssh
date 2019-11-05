@@ -1,8 +1,0 @@
-#this is an example of the configuration file,if you do not want to use the script to generate it
-#ip/fqdn |name|user|port
-10.4.0.82|test|root|22
-50.4.0.2|test1|luca|23
-192.168.1.1|test2|test|24
-256.1.1.1|test|test|22
-1.2.0.4|test|test|22
-mail.debian.local|test|test|22

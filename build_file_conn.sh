@@ -2,7 +2,7 @@
 #Description:script that add elements to the ssh_connect.sh configuration file
 #Author: Luca Radaelli <lradaelli85@users.noreply.github.com>
 
-file_ssh="$HOME/.ip_ssh"
+file_ssh="ip_ssh"
 
 add_elem(){
   if [ ! -z "$1" ]
@@ -23,6 +23,5 @@ if [ $# -eq 4 ]
   var="$1|$2|$3|$4"
   add_elem ${var}
   else
-    echo "invalid parameter"
     echo "usage: $0 ipaddress logicalname username port"
 fi
