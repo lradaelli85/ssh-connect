@@ -6,16 +6,24 @@ param="$1"
 
 validate_ip () {
 local ip
-if [[ $1 =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]
-  then
-    ip=(`echo $1 |awk -F'.' '{print $1" "$2" "$3" "$4}'`)
-    if [[ ${ip[0]} -le 255 && ${ip[1]} -le 255 && ${ip[2]} -le 255 && ${ip[3]} -le 255 ]]
-      then
-        echo "ip correctly validated"
-        else
-          echo "$1 : not a valid IP"
-          exit 1;
-    fi
+not_valid=0
+ip=($(echo $1 |awk -F'.' '{print $1" "$2" "$3" "$4}'))
+if [ ${#ip[@]} -eq 4 ]
+    then
+          for i in ${ip[@]}
+               do
+                    if [[ ! "${i}" =~ ^[0-9]{1,3}$ ]] || [ "${i}" -lt 0 ] || [ "${i}" -gt 255 ]
+                        then
+                            not_valid=1
+                    fi
+               done
+    else
+        not_valid=1
+fi
+if [ ${err} == 1 ]
+    then
+        echo "not a valid ip"
+        exit 1;
 fi
 }
 
