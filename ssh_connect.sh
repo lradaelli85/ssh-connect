@@ -20,7 +20,7 @@ if [ ${#ip[@]} -eq 4 ]
     else
         not_valid=1
 fi
-if [ ${err} == 1 ]
+if [ ${not_valid} -eq 1 ]
     then
         echo "not a valid ip"
         exit 1;
