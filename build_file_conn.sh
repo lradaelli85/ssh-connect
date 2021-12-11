@@ -20,8 +20,13 @@ fi
 if [ $# -eq 4 ]
  then
   echo "adding $@ to file $file_ssh"
-  var="$1|$2|$3|$4"
+  var="$1|$2|$3|$4|"
   add_elem ${var}
-  else
-    echo "usage: $0 ipaddress logicalname username port"
+elif [ $# -eq 5 ]
+  then
+    echo "adding $@ to file $file_ssh"
+    var="$1|$2|$3|$4|$5"
+    add_elem ${var}
+else
+    echo "usage: $0 ipaddress logicalname username port <ssh_key>"
 fi

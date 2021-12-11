@@ -1,0 +1,11 @@
+_ssh_connect() {
+local cur prev opts
+COMPREPLY=()
+cur="${COMP_WORDS[COMP_CWORD]}"
+prev="${COMP_WORDS[COMP_CWORD-1]}"
+words="$( if [ -e $HOME/.ip_ssh ];then cat $HOME/.ip_ssh |grep -vE "^#" | cut -d "|" -f2; fi )"
+COMPREPLY=( $(compgen -W "${words}" -- ${cur}) )
+return 0
+}
+
+complete -F _ssh_connect ssh_connect -o bashdefault
