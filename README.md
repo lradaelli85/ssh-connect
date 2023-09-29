@@ -14,14 +14,14 @@ Is not mandatory to use the `build_file_conn.sh` to create the configuration fil
 ### Configuration file example
 
 ```
-#ip/fqdn |name|user|port
+#ip/fqdn |name|user|port|ssh-key
 
 10.4.0.82|test|root|22
 50.4.0.2|test1|luca|23
 192.168.1.1|test2|test|24
 252.1.1.1|test|test|22
 1.2.0.4|test|test|22
-mail.debian.local|test|test|22
+mail.debian.local|test|test|22|/home/luca/.ssh/my-ssh-key
 ```
 
 ### Add a host using the script
@@ -43,12 +43,10 @@ mail.debian.local|test|test|22
 
 ```
 luca@linux:~$ ./ssh_connect.sh
-0_10.20.20.1->KVM
-1_192.168.1.50->OSMC
-2_192.168.1.1->Web-server
-3_vpn.example.com->AWS
-choose the system ID you want to connect to
-0
-ip correctly validated
+0) 10.20.20.1 --> KVM
+1) 192.168.1.50 --> OSMC
+2) 192.168.1.1 --> Web-server
+3) vpn.example.com --> AWS
+choose the system ID you want to connect to: 0
 root@10.20.20.1's password:
 ```
