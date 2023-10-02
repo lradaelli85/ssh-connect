@@ -1,0 +1,6 @@
+_ssh_connect() {
+words=($( if [ -e $HOME/.ip_ssh ];then cat $HOME/.ip_ssh |grep -vE "^#|^$" | cut -d "|" -f2; fi ))
+compadd  $words
+}
+
+compdef _ssh_connect ssh_connect
