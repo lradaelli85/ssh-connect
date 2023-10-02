@@ -2,7 +2,6 @@
 set -e
 SSH=`which ssh`
 SSH_FILE="$HOME/.ip_ssh"
-SSH_KEY_PATH="$HOME/.ssh"
 param="$1"
 
 if [ $# -ne 1 ]
@@ -13,23 +12,15 @@ fi
 
 if [ -s $SSH_FILE ]
     then
-        line=( $( grep ${param} ${SSH_FILE} |awk -F "|" '{print $1" "$2" "$3" "$4" "$5}') )
+        line=( $( grep -w ${param} ${SSH_FILE} |awk -F "|" '{print $1" "$2" "$3" "$4" "$5}') )
         HOST=${line[0]}
         USER=${line[2]}
-        PORT=${line[3]}
+        PORT=${line[3]:="22"}
         SSH_KEY=${line[4]}
-        CMD=""
-        if [ -z ${PORT} ]
+        CMD="$SSH ${USER}@${HOST} -p ${PORT}"
+        if [ ! -z ${SSH_KEY} ] && [ -f "$SSH_KEY" ]
             then
-                CMD="$SSH ${USER}@${HOST}"
-            else
-                CMD="$SSH ${USER}@${HOST} -p ${PORT}"
-        fi
-        if [ ! -z ${SSH_KEY} ] && [ -f "$SSH_KEY_PATH/$SSH_KEY" ]
-            then
-                CMD=$CMD" -i $SSH_KEY_PATH/$SSH_KEY"
-            #else
-            #  exit 1
+                CMD="${CMD} -i ${SSH_KEY}"
         fi
         $CMD
     else
